@@ -18,9 +18,9 @@ BOARD_VENDOR := xiaomi
 
 DEVICE_PATH := device/xiaomi/surya
 
-ifeq ($(WITH_GMS),true)
+# ifeq ($(WITH_GMS),true)
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
-endif
+# endif
 
 # Inherit from proprietary files
 include vendor/xiaomi/surya/BoardConfigVendor.mk
@@ -37,6 +37,12 @@ TARGET_2ND_ARCH_VARIANT := armv8-a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a76
+
+# Use proton clang
+TARGET_KERNEL_CLANG_VERSION := proton
+
+# Allow duplicates
+BUILD_BROKEN_DUP_RULES := true
 
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "qualcomm-hidl"
@@ -185,6 +191,7 @@ include device/qcom/sepolicy_vndr-legacy-um/SEPolicy.mk
 
 BUILD_BROKEN_VENDOR_PROPERTY_NAMESPACE := true
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
+SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/private
 
 # Vendor security patch level
 VENDOR_SECURITY_PATCH := 2022-06-05

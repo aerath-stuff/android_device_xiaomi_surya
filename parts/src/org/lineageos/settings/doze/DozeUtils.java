@@ -93,8 +93,20 @@ public final class DozeUtils {
             if (DEBUG) {
                 Log.d(TAG, "Wake up display");
             }
-            PowerManager powerManager = context.getSystemService(PowerManager.class);
-            powerManager.wakeUp(SystemClock.uptimeMillis(), PowerManager.WAKE_REASON_GESTURE, TAG);
+            try {
+                PowerManager powerManager = context.getSystemService(PowerManager.class);
+                powerManager.wakeUp(SystemClock.uptimeMillis(), PowerManager.WAKE_REASON_GESTURE, TAG);
+            } catch (Throwable t) {
+                try {
+                    java.lang.Process process = java.lang.Runtime.getRuntime().exec("sh");
+                    java.io.OutputStream outputStream = process.getOutputStream();
+                    outputStream.write("input keyevent 26\nexit\n".getBytes());
+                    outputStream.flush();
+                    outputStream.close();
+                } catch (Throwable x) {
+                    Log.e(TAG, "Wake up failed with both methods");
+                }
+            }
         } else {
             if (DEBUG) {
                 Log.d(TAG, "Launch doze pulse");

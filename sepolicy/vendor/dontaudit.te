@@ -26,3 +26,16 @@ dontaudit vendor_netmgrd vendor_diag_device:chr_file rw_file_perms;
 dontaudit vendor_qti vendor_diag_device:chr_file rw_file_perms;
 
 dontaudit vendor_sensors_qti vendor_diag_device:chr_file rw_file_perms;
+
+dontaudit kernel self:capability kill;
+
+dontaudit toolbox self:capability kill;
+
+dontaudit init sysfs:file write;
+
+dontaudit vendor_qtelephony default_android_service:service_manager find;
+
+dontaudit hal_audio_default default_prop:file read;
+dontaudit system_server sysfs:file read;
+dontaudit system_server vendor_default_prop:file read;
+dontaudit rild default_prop:file read;
